@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1">
+<title>I Giganti della Sardegna</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css">
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+font-family:Inter,sans-serif;
+background:#07111d;
+color:#fff;
+overflow-x:hidden;
+}
+
+.page{
+display:none;
+}
+
+.active{
+display:block;
+}
+
+.hero{
+position:relative;
+min-height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+padding:20px;
+overflow:hidden;
+}
+
+.hero video{
+position:absolute;
+top:0;
+left:0;
+width:100%;
+height:100%;
+object-fit:cover;
+z-index:-2;
+filter:brightness(.45);
+}
+
+.overlay{
+position:absolute;
+inset:0;
+background:linear-gradient(rgba(0,0,0,.35),rgba(0,0,0,.72));
+z-index:-1;
+}
+
+.card{
+max-width:440px;
+padding:24px;
+border-radius:28px;
+background:rgba(255,255,255,.08);
+backdrop-filter:blur(14px);
+border:1px solid rgba(255,255,255,.12);
+text-align:center;
+box-shadow:0 20px 60px rgba(0,0,0,.45);
+}
+
+h1{
+font-family:Cinzel,serif;
+font-size:2rem;
+margin-bottom:10px;
+}
+
+p{
+margin:8px 0;
+line-height:1.5;
+}
+
+.flags button{
+background:none;
+border:none;
+font-size:1.4rem;
+margin:4px;
+cursor:pointer;
+}
+
+.cta{
+margin-top:14px;
+padding:14px 20px;
+border:none;
+border-radius:18px;
+background:linear-gradient(45deg,#ffd36b,#ff8a00);
+font-weight:800;
+font-size:1rem;
+cursor:pointer;
+color:#111;
+}
+
+header{
+padding:10px;
+text-align:center;
+background:#06192dcc;
+position:sticky;
+top:0;
+z-index:999;
+backdrop-filter:blur(10px);
+}
+
+.toolbar{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:6px;
+margin-top:8px;
+}
+
+.toolbar button{
+padding:10px 12px;
+border:none;
+border-radius:14px;
+background:rgba(255,255,255,.12);
+color:white;
+cursor:pointer;
+}
+
+#map{
+width:100%;
+height:72vh;
+}
+
+#info{
+padding:14px;
+background:#0b1f35;
+}
+
+.chat{
+display:flex;
+gap:8px;
+padding:10px;
+background:#081727;
+}
+
+.chat input{
+flex:1;
+padding:12px;
+border:none;
+border-radius:14px;
+}
+
+.chat button{
+padding:12px 16px;
+border:none;
+border-radius:14px;
+background:#ffd36b;
+font-weight:bold;
+cursor:pointer;
+}
+
+.ticker{
+background:#0008;
+padding:10px;
+white-space:nowrap;
+overflow:hidden;
+font-size:.95rem;
+}
+
+.ticker span{
+display:inline-block;
+padding-left:100%;
+animation:scroll 28s linear infinite;
+}
+
+@keyframes scroll{
+to{
+transform:translateX(-100%);
+}
+}
+</style>
+</head>
+
+<body>
+
+<!-- HOME -->
+<section id="home" class="page active">
+
+<div class="hero">
+
+<video autoplay muted loop playsinline>
+<source src="video.mp4" type="video/mp4">
+</video>
+
+<div class="overlay"></div>
+
+<div class="card">
+
+<div class="flags">
+<button>🇮🇹</button>
+<button>🇬🇧</button>
+<button>🇫🇷</button>
+<button>🇩🇪</button>
+<button>🇪🇸</button>
+</div>
+
+<h1>I Giganti della Sardegna</h1>
+
+<p>In 3500 anni abbiamo creato questi influencer oltre il mare e le coste</p>
+
+<p>Nuraghi • Domus de Janas • Borghi • Comuni vicini</p>
+
+<button class="cta" onclick="showPage('app');setTimeout(initMap,300)">
+Esplora la mappa
+</button>
+
+</div>
+</div>
+
+<div class="ticker">
+<span>
+Notizie Sardegna • Cultura • Turismo • UNESCO • Borghi • Tradizioni • Eventi • Sapori autentici • Innovazione
+</span>
+</div>
+
+</section>
+
+<!-- APP -->
+<section id="app" class="page">
+
+<header>
+<h1 style="font-size:1.4rem">I Giganti della Sardegna</h1>
+
+<div class="toolbar">
+<button onclick="loadType('all')">Tutti</button>
+<button onclick="loadType('nur')">Nuraghi</button>
+<button onclick="loadType('dom')">Domus</button>
+<button onclick="loadType('bor')">Borghi</button>
+<button onclick="nearMe()">GPS</button>
+<button onclick="voiceGuide()">Dagli voce</button>
+<button onclick="cooprogetta()">Cooprogetta</button>
+<button onclick="showPage('home')">⬅</button>
+</div>
+</header>
+
+<div id="map"></div>
+
+<div id="info">
+Seleziona un punto della mappa per scoprire la Sardegna millenaria.
+</div>
+
+<div class="chat">
+<input type="text" id="question" placeholder="Chiedi al chatbot...">
+<button onclick="chatbot()">Invia</button>
+</div>
+
+<div class="ticker">
+<span>
+PASSAMONTI_COMMUNICATION • Soluzioni digitali per il patrimonio culturale della Sardegna
+</span>
+</div>
+
+</section>
+
+<script>
+let map;
+let markers=[];
+
+const luoghi=[
+{
+nome:"Su Nuraxi",
+tipo:"nur",
+lat:39.705,
+lng:8.997,
+link:"https://it.wikipedia.org/wiki/Su_Nuraxi"
+},
+{
+nome:"Palmavera",
+tipo:"nur",
+lat:40.604,
+lng:8.289,
+link:"https://it.wikipedia.org/wiki/Nuraghe_Palmavera"
+},
+{
+nome:"Santu Antine",
+tipo:"nur",
+lat:40.467,
+lng:8.696,
+link:"https://it.wikipedia.org/wiki/Nuraghe_Santu_Antine"
+},
+{
+nome:"Montessu",
+tipo:"dom",
+lat:39.164,
+lng:8.615,
+link:"https://it.wikipedia.org/wiki/Necropoli_di_Montessu"
+},
+{
+nome:"Anghelu Ruju",
+tipo:"dom",
+lat:40.629,
+lng:8.321,
+link:"https://it.wikipedia.org/wiki/Anghelu_Ruju"
+},
+{
+nome:"Bosa",
+tipo:"bor",
+lat:40.299,
+lng:8.498,
+link:"https://it.wikipedia.org/wiki/Bosa"
+},
+{
+nome:"Castelsardo",
+tipo:"bor",
+lat:40.916,
+lng:8.714,
+link:"https://it.wikipedia.org/wiki/Castelsardo"
+}
+];
+
+function showPage(id){
+document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+document.getElementById(id).classList.add("active");
+}
+
+function initMap(){
+if(map) return;
+
+map=L.map("map").setView([40.1,9.0],8);
+
+L.tileLayer(
+"https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+{
+attribution:"© OpenStreetMap"
+}
+).addTo(map);
+
+loadType("all");
+}
+
+function color(tipo){
+if(tipo==="nur") return "red";
+if(tipo==="dom") return "purple";
+if(tipo==="bor") return "gold";
+return "white";
+}
+
+function loadType(tipo){
+
+markers.forEach(m=>map.removeLayer(m));
+markers=[];
+
+luoghi
+.filter(l=>tipo==="all" || l.tipo===tipo)
+.forEach(l=>{
+
+let marker=L.circleMarker(
+[l.lat,l.lng],
+{
+radius:8,
+color:"#fff",
+weight:2,
+fillColor:color(l.tipo),
+fillOpacity:.9
+}
+).addTo(map);
+
+marker.on("click",()=>{
+openPoint(l);
+});
+
+markers.push(marker);
+
+});
+}
+
+function openPoint(luogo){
+
+map.setView([luogo.lat,luogo.lng],12,{animate:true});
+
+document.getElementById("info").innerHTML=
+"<h3>"+luogo.nome+"</h3>"+
+"<p>Patrimonio straordinario della Sardegna.</p>"+
+"<p><a href='"+luogo.link+"' target='_blank' style='color:#ffd36b'>Apri scheda</a></p>";
+}
+
+function nearMe(){
+
+if(!navigator.geolocation){
+alert("GPS non disponibile");
+return;
+}
+
+navigator.geolocation.getCurrentPosition(pos=>{
+
+let lat=pos.coords.latitude;
+let lng=pos.coords.longitude;
+
+map.setView([lat,lng],10);
+
+L.marker([lat,lng]).addTo(map)
+.bindPopup("Tu sei qui")
+.openPopup();
+
+});
+}
+
+function voiceGuide(){
+
+const text=
+"Benvenuto nei Giganti della Sardegna. Esplora la storia millenaria dell'isola.";
+
+speechSynthesis.speak(
+new SpeechSynthesisUtterance(text)
+);
+}
+
+function cooprogetta(){
+
+window.location.href=
+"mailto:passamonti@passamonti.it?subject=Proposta%20di%20miglioramento";
+}
+
+function chatbot(){
+
+let domanda=document.getElementById("question").value.toLowerCase();
+let risposta="Esplora i luoghi e scopri la storia della Sardegna.";
+
+if(domanda.includes("nurag")){
+risposta="I nuraghi sono torri megalitiche uniche al mondo costruite in Sardegna.";
+}
+
+if(domanda.includes("domus")){
+risposta="Le Domus de Janas sono antiche tombe scavate nella roccia.";
+}
+
+if(domanda.includes("borg")){
+risposta="I borghi della Sardegna custodiscono storia, tradizioni e panorami meravigliosi.";
+}
+
+document.getElementById("info").innerHTML="<p>"+risposta+"</p>";
+}
+</script>
+
+</body>
+</html>

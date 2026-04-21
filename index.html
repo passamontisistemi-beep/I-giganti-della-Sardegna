@@ -47,7 +47,7 @@ z-index:-1;
 }
 
 .card{
-max-width:500px;
+max-width:520px;
 padding:24px;
 background:rgba(255,255,255,.10);
 border-radius:24px;
@@ -127,6 +127,7 @@ font-weight:bold;
 
 <body>
 
+<!-- HOME -->
 <section id="home" class="page active">
 
 <div class="hero">
@@ -164,6 +165,7 @@ Esplora la mappa
 
 </section>
 
+<!-- MAPPA -->
 <section id="app" class="page">
 
 <div class="toolbar">
@@ -203,7 +205,8 @@ document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
 document.getElementById(id).classList.add("active");
 }
 
-const data=[
+/* DATABASE COMPLETO - PARTE 1 */
+const data = [
 
 /* BORGHI */
 {name:"Lollove",type:"bor",lat:40.365,lng:9.332,slug:"Lollove"},
@@ -233,29 +236,58 @@ const data=[
 {name:"Oes",type:"nur",lat:40.530,lng:8.660,slug:"Nuraghe_Oes"},
 {name:"Genna Maria",type:"nur",lat:39.640,lng:8.930,slug:"Nuraghe_Genna_Maria"},
 {name:"Is Paras",type:"nur",lat:39.760,lng:8.530,slug:"Nuraghe_Is_Paras"},
+/* DATABASE COMPLETO - PARTE 2 */
+
+/* NURAGHI CONTINUA */
+{name:"Nuraghe Nolza",type:"nur",lat:39.650,lng:9.240,slug:"Nuraghe_Nolza"},
+{name:"Nuraghe Cuccurada",type:"nur",lat:39.520,lng:9.230,slug:"Nuraghe_Cuccurada"},
+{name:"Nuraghe Diana",type:"nur",lat:39.210,lng:9.300,slug:"Nuraghe_Diana"},
+{name:"Nuraghe Piscu",type:"nur",lat:39.540,lng:8.780,slug:"Nuraghe_Piscu"},
+{name:"Nuraghe Albucciu",type:"nur",lat:41.080,lng:9.390,slug:"Nuraghe_Albucciu"},
+{name:"Nuraghe Majori",type:"nur",lat:41.050,lng:9.170,slug:"Nuraghe_Majori"},
+{name:"Nuraghe Loelle",type:"nur",lat:40.740,lng:9.180,slug:"Nuraghe_Loelle"},
+{name:"Nuraghe Aiga",type:"nur",lat:40.560,lng:8.660,slug:"Nuraghe_Aiga"},
+{name:"Nuraghe Santa Sabina",type:"nur",lat:40.010,lng:8.610,slug:"Nuraghe_Santa_Sabina"},
+{name:"Nuraghe Orolo",type:"nur",lat:40.320,lng:9.350,slug:"Nuraghe_Orolo"},
+{name:"Nuraghe Mereu",type:"nur",lat:39.820,lng:9.400,slug:"Nuraghe_Mereu"},
+{name:"Nuraghe Asoru",type:"nur",lat:39.720,lng:9.000,slug:"Nuraghe_Asoru"},
+{name:"Nuraghe Scerì",type:"nur",lat:39.700,lng:9.120,slug:"Nuraghe_Sceri"},
+{name:"Nuraghe Domu Beccia",type:"nur",lat:39.570,lng:8.900,slug:"Nuraghe_Domu_Beccia"},
+{name:"Nuraghe Su Mulinu",type:"nur",lat:39.560,lng:8.890,slug:"Nuraghe_Su_Mulinu"},
+{name:"Nuraghe Bau Nuraxi",type:"nur",lat:39.640,lng:9.190,slug:"Nuraghe_Bau_Nuraxi"},
+{name:"Nuraghe Talei",type:"nur",lat:40.020,lng:9.240,slug:"Nuraghe_Talei"},
+{name:"Nuraghe Funtana",type:"nur",lat:39.880,lng:9.520,slug:"Nuraghe_Funtana"},
 
 /* DOMUS DE JANAS */
 {name:"Montessu",type:"dom",lat:39.164,lng:8.615,slug:"Necropoli_di_Montessu"},
 {name:"Anghelu Ruju",type:"dom",lat:40.629,lng:8.321,slug:"Anghelu_Ruju"},
-{name:"Sant'Andrea Priu",type:"dom",lat:40.362,lng:8.622,slug:"Necropoli_di_Sant'Andrea_Priu"},
+{name:"Sant'Andrea Priu",type:"dom",lat:40.362,lng:8.622,slug:"Necropoli_di_Sant_Andrea_Priu"},
 {name:"Puttu Codinu",type:"dom",lat:40.218,lng:8.534,slug:"Necropoli_di_Puttu_Codinu"},
 {name:"Mesu e Montes",type:"dom",lat:40.465,lng:8.744,slug:"Mesu_e_Montes"},
 {name:"Sos Furrighesos",type:"dom",lat:40.337,lng:9.331,slug:"Sos_Furrighesos"},
-{name:"Ispiluncas",type:"dom",lat:39.931,lng:9.510,slug:"Ispiluncas"}
+{name:"Ispiluncas",type:"dom",lat:39.931,lng:9.510,slug:"Ispiluncas"},
+{name:"Domus S'Incantu",type:"dom",lat:39.820,lng:9.410,slug:"Domus_S_Incantu"},
+{name:"Domus Is Concas",type:"dom",lat:39.950,lng:9.130,slug:"Is_Concas"},
+{name:"Domus Sedda Sos Carros",type:"dom",lat:40.200,lng:9.380,slug:"Sedda_Sos_Carros"},
+{name:"Domus Mandra Antine",type:"dom",lat:40.490,lng:8.700,slug:"Mandra_Antine"},
+{name:"Domus Filigosa",type:"dom",lat:40.140,lng:8.720,slug:"Filigosa"},
+{name:"Domus Sas Concas",type:"dom",lat:39.960,lng:9.050,slug:"Sas_Concas"},
+{name:"Domus Corongiu",type:"dom",lat:39.260,lng:9.180,slug:"Corongiu"},
+{name:"Domus Bingia e Monti",type:"dom",lat:39.320,lng:9.140,slug:"Bingia_e_Monti"},
+{name:"Domus Cuccuru Craboni",type:"dom",lat:39.250,lng:8.560,slug:"Cuccuru_Craboni"},
+{name:"Domus Pranu Muttedu",type:"dom",lat:39.520,lng:9.120,slug:"Pranu_Muttedu"},
+{name:"Domus Matta Sa Perda",type:"dom",lat:39.610,lng:9.330,slug:"Matta_Sa_Perda"}
 
 ];
 
 function initMap(){
-
 if(map) return;
 
 map=L.map("map").setView([40.1,9.0],8);
 
 L.tileLayer(
 "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-{
-attribution:"© OpenStreetMap"
-}
+{attribution:"© OpenStreetMap"}
 ).addTo(map);
 
 filterType("all");
@@ -304,6 +336,7 @@ document.getElementById("info").innerHTML=item.name;
 markers.push(marker);
 
 });
+
 }
 
 function nearMe(){

@@ -3,28 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>I Giganti della Sardegna Premium</title>
+<title>I Giganti della Sardegna</title>
 <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css">
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 <style>
-body{margin:0;padding-bottom:60px;font-family:Arial,sans-serif;background:#08111f;color:#fff}
-#map{height:72vh}
-.page{display:none}.active{display:block}
-.hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:20px;overflow:hidden}
-.hero video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2}
-.overlay{position:absolute;inset:0;background:linear-gradient(rgba(0,0,0,.35),rgba(0,0,0,.65));z-index:-1}
-.card{max-width:520px;padding:24px;background:rgba(255,255,255,.10);border-radius:24px;backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.15);box-shadow:0 20px 60px rgba(0,0,0,.45)}
-.flags button,.toolbar button{margin:4px;padding:10px 12px;border:0;border-radius:14px;cursor:pointer}
-.flags button{background:none}.toolbar{padding:10px;text-align:center;background:#0008;position:sticky;top:0;z-index:999;backdrop-filter:blur(10px)}
-.toolbar button{background:#ffffff22;color:#fff}.cta{background:#ffd36b;color:#111;font-weight:bold}
-.searchbar{padding:10px;background:#06192d;display:flex;gap:8px}.searchbar input{flex:1;padding:10px;border-radius:12px;border:0}.searchbar button{padding:10px 14px;border:0;border-radius:12px;background:#ffd36b;font-weight:700}
-.ticker{padding:10px;background:#0008;white-space:nowrap;overflow:hidden}.ticker span{display:inline-block;padding-left:100%;animation:scroll 35s linear infinite}@keyframes scroll{to{transform:translateX(-100%)}}
-#info{padding:12px;background:#0c1c2d}.popupbtn{display:inline-block;padding:8px 12px;background:#ffd36b;color:#111;border-radius:10px;text-decoration:none;font-weight:bold}
-.logo{position:fixed;left:0;right:0;bottom:0;background:#08111f;padding:10px;text-align:center;font-weight:700;z-index:1000}
+body{padding-bottom:60px;} .searchbar{padding:10px;background:#06192d;display:flex;gap:8px}.searchbar input{flex:1;padding:10px;border-radius:12px;border:0}.searchbar button{padding:10px 14px;border:0;border-radius:12px;background:#ffd36b;font-weight:700} .card{max-width:520px;padding:24px;background:transparent;border-radius:24px;backdrop-filter:none;border:none;box-shadow:none} .toolbar{backdrop-filter:blur(10px)}
+body{margin:0;font-family:Arial,sans-serif;background:#08111f;color:#fff}#map{height:72vh}.page{display:none}.active{display:block}.hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:20px}.hero video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2}.overlay{position:absolute;inset:0;background:rgba(0,0,0,.45);z-index:-1}.card{max-width:460px;padding:24px;background:rgba(255,255,255,.1);border-radius:24px}.flags button,.toolbar button{margin:4px;padding:10px 12px;border:0;border-radius:14px;cursor:pointer}.flags button{background:none;font-size:28px}.toolbar{padding:10px;text-align:center;background:#0008;position:sticky;top:0;z-index:999}.toolbar button{background:#ffffff22;color:#fff}.cta{background:#ffd36b;color:#111;font-weight:bold}.ticker{padding:10px;background:#0008;white-space:nowrap;overflow:hidden}.ticker span{display:inline-block;padding-left:100%;animation:scroll 25s linear infinite}@keyframes scroll{to{transform:translateX(-100%)}}#info{padding:12px}.popupbtn{display:inline-block;padding:8px 12px;background:#ffd36b;color:#111;border-radius:10px;text-decoration:none}
 </style>
 </head>
 <body>
-
 <section id="home" class="page active">
 <div class="hero">
 <video autoplay muted loop playsinline>
@@ -32,22 +19,15 @@ body{margin:0;padding-bottom:60px;font-family:Arial,sans-serif;background:#08111
 </video>
 <div class="overlay"></div>
 <div class="card">
-<div class="flags">
-<button onclick="setLang('it')"><img src="https://flagcdn.com/w40/it.png" width="32"></button>
-<button onclick="setLang('en')"><img src="https://flagcdn.com/w40/gb.png" width="32"></button>
-<button onclick="setLang('fr')"><img src="https://flagcdn.com/w40/fr.png" width="32"></button>
-<button onclick="setLang('de')"><img src="https://flagcdn.com/w40/de.png" width="32"></button>
-<button onclick="setLang('es')"><img src="https://flagcdn.com/w40/es.png" width="32"></button>
-</div>
-<h1>I Giganti della Sardegna</h1>
-<p>In 3500 anni abbiamo creato questi influencer oltre il mare e le coste</p>
-<p>Nuraghi • Domus de Janas • Borghi</p>
-<button class="cta" onclick="showPage('app');setTimeout(initMap,300)">Esplora la mappa</button>
+<div class="flags"><button onclick="setLang('it')"><img src='https://flagcdn.com/w40/it.png' width='32'></button><button onclick="setLang('en')"><img src='https://flagcdn.com/w40/gb.png' width='32'></button><button onclick="setLang('fr')"><img src='https://flagcdn.com/w40/fr.png' width='32'></button><button onclick="setLang('de')"><img src='https://flagcdn.com/w40/de.png' width='32'></button><button onclick="setLang('es')"><img src='https://flagcdn.com/w40/es.png' width='32'></button></div>
+<h1 id="title">I Giganti della Sardegna</h1>
+<p id="subtitle">In 3500 anni abbiamo creato questi influencer oltre il mare e le coste</p>
+<p id="desc">Nuraghi • Domus de Janas • Borghi • Comuni vicini</p>
+<button class="flags button cta" onclick="showPage('app');setTimeout(initMap,200)">Esplora la mappa</button>
 </div>
 </div>
-<div class="ticker"><span>prova rss • prova rss • prova rss • prova rss</span></div>
+<div class="ticker"><span>News Sardegna • Cultura • Turismo • Eventi • Enogastronomia • Tradizioni</span></div>
 </section>
-
 <section id="app" class="page">
 <div class="toolbar">
 <button onclick="filterType('all')">Tutti</button>
@@ -57,177 +37,25 @@ body{margin:0;padding-bottom:60px;font-family:Arial,sans-serif;background:#08111
 <button onclick="nearMe()">GPS</button>
 <button onclick="showPage('home')">⬅</button>
 </div>
-
-<div class="searchbar">
-<input id="search" placeholder="Cerca luogo...">
-<button onclick="searchPlace()">Cerca</button>
-</div>
-
-<div id="map"></div>
-<div id="info">Tocca un punto della mappa.</div>
-<div class="ticker"><span>prova rss • prova rss • prova rss • prova rss</span></div>
+<div class="searchbar"><input id="search" placeholder="Cerca luogo..."><button onclick="searchPlace()">Cerca</button></div><div id="map"></div>
+<div id="info">Tocca un punto sulla mappa.</div>
+<div class="ticker"><span>prova rss • prova rss • prova rss • prova rss</span></div><div style="position:fixed;left:0;right:0;bottom:0;background:#08111f;padding:10px;text-align:center;font-weight:700;z-index:1000">PASSAMONTI_COMMUNICATION</div>
 </section>
-
-<div class="logo">PASSAMONTI_COMMUNICATION</div>
-
 <script>
-let lang="it",map,markers=[];
-const texts={
-it:{all:"Tutti",nur:"Nuraghi",dom:"Domus",bor:"Borghi",search:"Cerca luogo..."},
-en:{all:"All",nur:"Nuraghi",dom:"Domus",bor:"Villages",search:"Search place..."},
-fr:{all:"Tous",nur:"Nuraghes",dom:"Domus",bor:"Villages",search:"Rechercher..."},
-de:{all:"Alle",nur:"Nuraghen",dom:"Domus",bor:"Dörfer",search:"Suchen..."},
-es:{all:"Todos",nur:"Nuragas",dom:"Domus",bor:"Pueblos",search:"Buscar..."}
-};
-
+let lang='it',map,markers=[];
+const texts={it:{all:'Tutti',nur:'Nuraghi',dom:'Domus',bor:'Borghi'},en:{all:'All',nur:'Nuraghes',dom:'Domus',bor:'Villages'},fr:{all:'Tous',nur:'Nuraghes',dom:'Domus',bor:'Bourgs'},de:{all:'Alle',nur:'Nuraghen',dom:'Domus',bor:'Dörfer'},es:{all:'Todos',nur:'Nuragas',dom:'Domus',bor:'Pueblos'}};
 function setLang(l){lang=l;translateUI();}
-function translateUI(){
-const t=texts[lang]||texts.it;
-const b=document.querySelectorAll(".toolbar button");
-b[0].innerText=t.all;b[1].innerText=t.nur;b[2].innerText=t.dom;b[3].innerText=t.bor;
-document.getElementById("search").placeholder=t.search;
-}
-function wiki(slug){return "https://"+lang+".wikipedia.org/wiki/"+slug;}
-function openWiki(slug,name){
-window.open(wiki(slug),"_blank");
-setTimeout(()=>{document.getElementById("info").innerHTML="Traduzione "+lang.toUpperCase()+": "+name;},700);
-}
-function showPage(id){
-document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
-document.getElementById(id).classList.add("active");
-}
-
-/* DATABASE COMPLETO PARTE 1 */
-const data=[
-
-/* BORGHI */
-{name:"Lollove",type:"bor",lat:40.365,lng:9.332,slug:"Lollove"},
-{name:"Tempio Pausania",type:"bor",lat:40.900,lng:9.100,slug:"Tempio_Pausania"},
-{name:"Aggius",type:"bor",lat:40.928,lng:8.981,slug:"Aggius"},
-{name:"Atzara",type:"bor",lat:39.990,lng:9.070,slug:"Atzara"},
-{name:"Bosa",type:"bor",lat:40.296,lng:8.498,slug:"Bosa"},
-{name:"Carloforte",type:"bor",lat:39.141,lng:8.303,slug:"Carloforte"},
-{name:"Castelsardo",type:"bor",lat:40.915,lng:8.714,slug:"Castelsardo"},
-{name:"Galtellì",type:"bor",lat:40.388,lng:9.615,slug:"Galtelli"},
-{name:"Laconi",type:"bor",lat:39.853,lng:9.050,slug:"Laconi"},
-{name:"La Maddalena",type:"bor",lat:41.214,lng:9.408,slug:"La_Maddalena"},
-{name:"Posada",type:"bor",lat:40.629,lng:9.717,slug:"Posada"},
-{name:"Sadali",type:"bor",lat:39.817,lng:9.272,slug:"Sadali"},
-{name:"Santu Lussurgiu",type:"bor",lat:40.137,lng:8.653,slug:"Santu_Lussurgiu"},
-{name:"Tratalias",type:"bor",lat:39.103,lng:8.574,slug:"Tratalias"},
-{name:"Usellus",type:"bor",lat:39.810,lng:8.840,slug:"Usellus"},
-
-/* NURAGHI INIZIO */
-{name:"Su Nuraxi",type:"nur",lat:39.705,lng:8.997,slug:"Su_Nuraxi"},
-{name:"Palmavera",type:"nur",lat:40.604,lng:8.289,slug:"Nuraghe_Palmavera"},
-{name:"Santu Antine",type:"nur",lat:40.467,lng:8.696,slug:"Nuraghe_Santu_Antine"},
-{name:"Losa",type:"nur",lat:40.103,lng:8.726,slug:"Nuraghe_Losa"},
-{name:"Arrubiu",type:"nur",lat:39.495,lng:9.226,slug:"Nuraghe_Arrubiu"},
-{name:"Santa Barbara",type:"nur",lat:39.410,lng:8.500,slug:"Nuraghe_Santa_Barbara"},
-{name:"Seruci",type:"nur",lat:39.180,lng:8.530,slug:"Nuraghe_Seruci"},
-{name:"Oes",type:"nur",lat:40.530,lng:8.660,slug:"Nuraghe_Oes"},
-{name:"Genna Maria",type:"nur",lat:39.640,lng:8.930,slug:"Nuraghe_Genna_Maria"},
-{name:"Is Paras",type:"nur",lat:39.760,lng:8.530,slug:"Nuraghe_Is_Paras"},
-  /* DATABASE COMPLETO PARTE 2 */
-
-{name:"Nuraghe Nolza",type:"nur",lat:39.650,lng:9.240,slug:"Nuraghe_Nolza"},
-{name:"Nuraghe Cuccurada",type:"nur",lat:39.520,lng:9.230,slug:"Nuraghe_Cuccurada"},
-{name:"Nuraghe Diana",type:"nur",lat:39.210,lng:9.300,slug:"Nuraghe_Diana"},
-{name:"Nuraghe Piscu",type:"nur",lat:39.540,lng:8.780,slug:"Nuraghe_Piscu"},
-{name:"Nuraghe Albucciu",type:"nur",lat:41.080,lng:9.390,slug:"Nuraghe_Albucciu"},
-{name:"Nuraghe Majori",type:"nur",lat:41.050,lng:9.170,slug:"Nuraghe_Majori"},
-{name:"Nuraghe Loelle",type:"nur",lat:40.740,lng:9.180,slug:"Nuraghe_Loelle"},
-{name:"Nuraghe Aiga",type:"nur",lat:40.560,lng:8.660,slug:"Nuraghe_Aiga"},
-{name:"Nuraghe Santa Sabina",type:"nur",lat:40.010,lng:8.610,slug:"Nuraghe_Santa_Sabina"},
-{name:"Nuraghe Orolo",type:"nur",lat:40.320,lng:9.350,slug:"Nuraghe_Orolo"},
-{name:"Nuraghe Mereu",type:"nur",lat:39.820,lng:9.400,slug:"Nuraghe_Mereu"},
-{name:"Nuraghe Asoru",type:"nur",lat:39.720,lng:9.000,slug:"Nuraghe_Asoru"},
-{name:"Nuraghe Scerì",type:"nur",lat:39.700,lng:9.120,slug:"Nuraghe_Sceri"},
-{name:"Nuraghe Domu Beccia",type:"nur",lat:39.570,lng:8.900,slug:"Nuraghe_Domu_Beccia"},
-{name:"Nuraghe Su Mulinu",type:"nur",lat:39.560,lng:8.890,slug:"Nuraghe_Su_Mulinu"},
-{name:"Nuraghe Bau Nuraxi",type:"nur",lat:39.640,lng:9.190,slug:"Nuraghe_Bau_Nuraxi"},
-{name:"Nuraghe Talei",type:"nur",lat:40.020,lng:9.240,slug:"Nuraghe_Talei"},
-{name:"Nuraghe Funtana",type:"nur",lat:39.880,lng:9.520,slug:"Nuraghe_Funtana"},
-
-/* DOMUS DE JANAS COMPLETE */
-{name:"Montessu",type:"dom",lat:39.164,lng:8.615,slug:"Necropoli_di_Montessu"},
-{name:"Anghelu Ruju",type:"dom",lat:40.629,lng:8.321,slug:"Anghelu_Ruju"},
-{name:"Sant'Andrea Priu",type:"dom",lat:40.362,lng:8.622,slug:"Necropoli_di_Sant_Andrea_Priu"},
-{name:"Puttu Codinu",type:"dom",lat:40.218,lng:8.534,slug:"Necropoli_di_Puttu_Codinu"},
-{name:"Mesu e Montes",type:"dom",lat:40.465,lng:8.744,slug:"Mesu_e_Montes"},
-{name:"Sos Furrighesos",type:"dom",lat:40.337,lng:9.331,slug:"Sos_Furrighesos"},
-{name:"Ispiluncas",type:"dom",lat:39.931,lng:9.510,slug:"Ispiluncas"},
-{name:"Domus S'Incantu",type:"dom",lat:39.820,lng:9.410,slug:"Domus_S_Incantu"},
-{name:"Domus Is Concas",type:"dom",lat:39.950,lng:9.130,slug:"Is_Concas"},
-{name:"Domus Sedda Sos Carros",type:"dom",lat:40.200,lng:9.380,slug:"Sedda_Sos_Carros"},
-{name:"Domus Mandra Antine",type:"dom",lat:40.490,lng:8.700,slug:"Mandra_Antine"},
-{name:"Domus Filigosa",type:"dom",lat:40.140,lng:8.720,slug:"Filigosa"},
-{name:"Domus Sas Concas",type:"dom",lat:39.960,lng:9.050,slug:"Sas_Concas"},
-{name:"Domus Corongiu",type:"dom",lat:39.260,lng:9.180,slug:"Corongiu"},
-{name:"Domus Bingia e Monti",type:"dom",lat:39.320,lng:9.140,slug:"Bingia_e_Monti"},
-{name:"Domus Cuccuru Craboni",type:"dom",lat:39.250,lng:8.560,slug:"Cuccuru_Craboni"},
-{name:"Domus Pranu Muttedu",type:"dom",lat:39.520,lng:9.120,slug:"Pranu_Muttedu"},
-{name:"Domus Matta Sa Perda",type:"dom",lat:39.610,lng:9.330,slug:"Matta_Sa_Perda"}
-
-];
-
-function initMap(){
-if(map) return;
-map=L.map("map").setView([40.1,9.0],8);
-L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",{attribution:"© OpenStreetMap"}).addTo(map);
-filterType("all");
-}
-
-function markerColor(type){
-if(type==="nur") return "red";
-if(type==="dom") return "green";
-if(type==="bor") return "blue";
-return "white";
-}
-
-function filterType(type){
-markers.forEach(m=>map.removeLayer(m));
-markers=[];
-
-data.filter(item=>type==="all"||item.type===type).forEach(item=>{
-let marker=L.circleMarker(
-[item.lat,item.lng],
-{radius:8,color:"#fff",weight:2,fillColor:markerColor(item.type),fillOpacity:.95}
-).addTo(map);
-
-marker.on("click",()=>{
-map.setView([item.lat,item.lng],12);
-marker.bindPopup(
-"<b>"+item.name+"</b><br><br>" +
-"<a href='#' class='popupbtn' onclick=\"openWiki('"+item.slug+"','"+item.name+"');return false;\">Wikipedia</a>"
-).openPopup();
-document.getElementById("info").innerHTML=item.name;
-});
-
-markers.push(marker);
-});
-}
-
-function searchPlace(){
-let q=document.getElementById("search").value.toLowerCase();
-let found=data.find(x=>x.name.toLowerCase().includes(q));
-if(found){
-map.setView([found.lat,found.lng],13);
-document.getElementById("info").innerHTML="Trovato: "+found.name;
-}else{
-document.getElementById("info").innerHTML="Nessun risultato";
-}
-}
-
-function nearMe(){
-if(!navigator.geolocation){alert("GPS non disponibile");return;}
-navigator.geolocation.getCurrentPosition(pos=>{
-let lat=pos.coords.latitude;
-let lng=pos.coords.longitude;
-map.setView([lat,lng],10);
-L.marker([lat,lng]).addTo(map).bindPopup("Tu sei qui").openPopup();
-});
-}
+function showPage(id){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');}
+function wiki(slug){return 'https://'+lang+'.wikipedia.org/wiki/'+slug;}
+function openWiki(slug,name){window.open(wiki(slug),'_blank');setTimeout(()=>{document.getElementById('info').innerHTML='Traduzione '+lang.toUpperCase()+': '+name+' - contenuto disponibile nella lingua selezionata.';},700);}
+const data="+js+";
+data.forEach(d=>{d.name=(d.name||'').replace(/\s+/g,' ').trim();d.slug=(d.slug||d.name).replace(/\s+/g,'_');d.lat=parseFloat(d.lat);d.lng=parseFloat(d.lng);});
+function initMap(){if(map)return;map=L.map('map').setView([40.1,9],8);L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© OpenStreetMap'}).addTo(map);filterType('all');}
+function clr(t){if(t==='nur')return 'red';if(t==='dom')return 'green';if(t==='bor')return 'blue';return 'white';}
+function filterType(t){markers.forEach(m=>map.removeLayer(m));markers=[];data.filter(x=>t==='all'||x.type===t).forEach(p=>{let m=L.circleMarker([p.lat,p.lng],{radius:8,color:'#fff',weight:2,fillColor:clr(p.type),fillOpacity:.9}).addTo(map);m.on('click',()=>{map.setView([p.lat,p.lng],12);m.bindPopup('<b>'+p.name+'</b><br><a class="popupbtn" target="_blank" href="#" onclick="openWiki(''+p.slug+'',''+p.name+'');return false;">Wikipedia</a>').openPopup();document.getElementById('info').innerHTML=p.name;});markers.push(m);});}
+function searchPlace(){let q=document.getElementById('search').value.toLowerCase();let f=data.find(x=>x.name.toLowerCase().includes(q));if(f){map.setView([f.lat,f.lng],13);document.getElementById('info').innerHTML='Trovato: '+f.name;}else{document.getElementById('info').innerHTML='Nessun risultato';}}
+function translateUI(){const t=texts[lang]||texts.it;document.querySelectorAll('.toolbar button')[0].innerText=t.all;document.querySelectorAll('.toolbar button')[1].innerText=t.nur;document.querySelectorAll('.toolbar button')[2].innerText=t.dom;document.querySelectorAll('.toolbar button')[3].innerText=t.bor;document.getElementById('search').placeholder=lang==='en'?'Search place...':'Cerca luogo...';}
+function nearMe(){navigator.geolocation?navigator.geolocation.getCurrentPosition(pos=>{map.setView([pos.coords.latitude,pos.coords.longitude],10)}):alert('GPS non disponibile');}
 </script>
 </body>
 </html>
